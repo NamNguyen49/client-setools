@@ -1,8 +1,14 @@
 import { Button, Stack, TextField, Typography, colors } from '@mui/material';
 import React from 'react';
 import { ScreenMode } from '../pages/SigninPage';
-
+import { useNavigate } from 'react-router-dom';
 const SigninForm = ({ onSwitchMode }) => {
+  const navigate = useNavigate();
+
+  const handleSignInClick = () => {
+    // Điều hướng đến trang "home"
+    navigate('/');
+  };
   return (
     <Stack
       justifyContent="center"
@@ -37,6 +43,7 @@ const SigninForm = ({ onSwitchMode }) => {
             </Stack>
           </Stack>
           <Button
+            onClick={handleSignInClick}
             variant='contained'
             size='large'
             sx={{

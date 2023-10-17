@@ -1,0 +1,37 @@
+/* Tùy chỉnh phần tử MenuItem */
+.MuiMenuItem-root {
+    display       : block;
+    padding       : 10px 20px;
+    text-align    : left;
+    color         : #333;
+    /* Màu chữ */
+    font-size     : 16px;
+    /* Cỡ chữ */
+    text-transform: none;
+    /* Chuyển đổi chữ hoa thành chữ thường */
+    cursor        : pointer;
+    transition    : background-color 0.2s, color 0.2s;
+    /* Hiệu ứng hover */
+
+    /* Định dạng phần tử khi di chuột qua */
+    &:hover {
+        background-color: #f0f0f0;
+        /* Màu nền khi di chuột qua */
+        color           : #000;
+        /* Màu chữ khi di chuột qua */
+    }
+}
+
+/* ProjectButton.css */
+
+/* Đảm bảo rằng MenuList có một z-index cao */
+.MenuList {
+    z-index: 1000;
+    /* Có thể điều chỉnh giá trị tùy theo cần thiết */
+}
+
+/* Đảm bảo rằng MenuItem có một z-index cao */
+.MenuItem {
+    z-index: 1001;
+    /* Có thể điều chỉnh giá trị tùy theo cần thiết, lớn hơn giá trị của MenuList */
+}
