@@ -31,9 +31,8 @@ import React from 'react';
 import './sideBar.css';
 import { sideBarData } from './sideBarData';
 
-// Assuming you have a ProjectButton component, import it here
-import ProjectButton from '../../ProjectButton';
-import Modalpopup from '../../Modalpopup';
+
+import Modalpopup from '../../CreateProject';
 function SideBar({ openDrawer }) {
   return (
     <div className='SideBar'>
