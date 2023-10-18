@@ -1,0 +1,24 @@
+.Header{
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+.Header .title{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    font-size: x-large;
+}
+.Content{
+    height: 100%;
+    width: 100%;
+}
+.CreateTask{
+    display: flex;
+    border: 1px solid #000;
+    width: 100px;
+    border-radius: 10px;
+}
