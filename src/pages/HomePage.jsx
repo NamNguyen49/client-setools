@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProjectButton from '../components/ProjectButton';
 
 export const HomePage = () => {
     const navigate = useNavigate();
@@ -9,12 +8,21 @@ export const HomePage = () => {
         navigate('/signin');
     };
 
-
     return (
         <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
-            <ProjectButton />
 
-            {/* <button
+            <img
+                src="/home.jpg"
+                alt="Hình ảnh toàn màn hình"
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                }}
+            />
+
+
+            <button
                 onClick={handleLoginClick}
                 style={{
                     position: 'absolute',
@@ -30,7 +38,7 @@ export const HomePage = () => {
                 }}
             >
                 Login
-            </button> */}
+            </button>
         </div>
     );
 };
