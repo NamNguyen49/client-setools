@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import "./style.css";
 import Column from "../studentComponent/column/Column";
 import { ColumnNames } from "../constants";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Stack, TextField } from "@mui/material";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -18,22 +20,35 @@ export default function App() {
   const [deadline, setDeadline] = useState("");
   const [open, setOpen] = useState(false);
   const [openCreateGroup, setOpenCreateGroup] = useState(false);
+  const [items, setItems] = useState([]);
+
 
   const [columnsArr, setColumnsArr] = useState([
-    { id: 1, title: ToDo },
+    { id: 1, title: ToDo }, //set theo status 
     { id: 2, title: InProgress },
     { id: 3, title: Done }
   ]);
-  const tasks = [
-    { id: 1, name: "Item 1", username: "Hi", column: ToDo },
-    { id: 2, name: "Item 2", username: "Hi", column: ToDo },
-    { id: 3, name: "Item 3", username: "Hi", column: ToDo }
-  ];
-  const [items, setItems] = useState(tasks);
-
-  useEffect(() => {
+  const URL_TASK = 'https://64783a97362560649a2d5a27.mockapi.io/api/TASK'
+  const fetchTaskData = () => {
+    fetch(URL_TASK)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Lỗi mạng - Không thể kết nối đến server.');
+        }
+        return response.json(); // Chuyển đổi dữ liệu JSON từ phản hồi
+      })
+      .then(data => {
+        setItems(data)
+        console.log(data); // In dữ liệu lấy được từ server lên console
+      })
+      .catch(error => {
+        console.error(error);
+      });
     getDataInProgress();
-  }, [items]);
+  }
+  useEffect(() => {
+    fetchTaskData();
+  }, []);
 
   const isMobile = window.innerWidth < 600;
 
@@ -61,13 +76,43 @@ export default function App() {
   const handleModalSave = (e) => {
     e.preventDefault();
     const newItem = {
-      id: items[items.length - 1].id + 1,
-      name: modalData,
-      column: ToDo,
-      assignee: assignee,
-      description: description,
-      deadline: deadline
+
+      NameTask: modalData,
+      ProjectId: items.ProjectId,
+      TeacherId: items.TeacherId,
+      Approve: ToDo,
+      StudentId: assignee,
+      DescriptionTask: description,
+      Deadline: deadline,
+      Comment: " "
     };
+    fetch(`${URL_TASK}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newItem),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network error - Unable to connect to the server.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Task updated successfully: ", data);
+        toast("Create new task successful", {
+          type: "success",
+          timeout: 2000,
+        });
+        fetchTaskData();
+
+
+      })
+      .catch((error) => {
+        console.error(error);
+
+      });
     setItems([...items, newItem]);
     setModalData("");
     setAssignee("");
@@ -78,14 +123,15 @@ export default function App() {
 
   const returnItemsForColumn = (columnName) => {
     return items
-      .filter((item) => item.column === columnName)
+      .filter((item) => item.Approve === columnName)
       .map((item, index) => {
+
         return (
           <SingleCard
-            key={item.id}
-            name={item.name}
+            id={item.TaskId}
+            name={item.StudentId}
             setItems={setItems}
-            username={item.username}
+            username={item.DescriptionTask}
             index={index}
             moveCardHandler={moveCardHandler}
             columnsArr={columnsArr}
@@ -94,9 +140,14 @@ export default function App() {
         );
       });
   };
-
+  const calculateColumnHeight = (columnName) => {
+    const itemsInColumn = items.filter((item) => item.Approve === columnName);
+    // Tính chiều cao dựa trên số lượng mục trong cột
+    const height = `${itemsInColumn.length * 250}vh`; // Điều chỉnh chiều cao theo ý muốn
+    return height;
+  };
   const getItemsInColumn = (columnName) => {
-    return items.filter((e) => e.column === columnName);
+    return items.filter((e) => e.Approve === columnName);
   };
 
   const getDataInProgress = () => {
@@ -130,11 +181,22 @@ export default function App() {
 
   return (
     <>
-      <button className="btnColumn" onClick={handleAddMember} >
-        Add member
-      </button>
-
-      <div className="container">
+      <div className="container" style={{
+        marginTop: "10px", marginBottom: "10px", justifyContent: "flex-start"
+        , width: "50%", marginLeft: "24%"
+      }
+      }>
+        <Button variant="contained" onClick={handleAddMember} > Add member</Button>
+        <Box
+          sx={{
+            width: 500,
+            maxWidth: '100%',
+          }}
+        >
+          <TextField size="small" fullWidth label="Email member" name='email' id="fullWidth" />
+        </Box>
+      </div>
+      <div className="container" style={{ justifyContent: "center" }}>
         <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
           {columnsArr.map((e) => {
             return (
@@ -154,16 +216,18 @@ export default function App() {
                 title={e.title}
                 progress={progress}
                 className="column"
+                style={{ height: calculateColumnHeight(e.title) }} 
+
               >
                 {returnItemsForColumn(e.title)}
               </Column>
             );
           })}
         </DndProvider>
-        <Modalpopup
+        {/* <Modalpopup
           open={openCreateGroup}
           onClose={() => setOpenCreateGroup(false)}
-        />
+        /> */}
       </div>
     </>
   );

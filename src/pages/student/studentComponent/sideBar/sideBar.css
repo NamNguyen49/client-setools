@@ -1,18 +1,47 @@
-.SideBar{
+.SideBar {
     height: 100vh;
     width: 300px;
-    background-color:rgb(233, 184, 184);
+    background-color: rgb(233, 184, 184);
     padding: 0;
     margin: 0;
 }
-.SideBarList{
+
+.SideBarList {
     height: auto;
     width: 100%;
-    margin:  0;
+    margin: 0;
     padding: 0;
 }
 
-.SideBarList .row{
+.SideBarList .row {
+    height: 60px;
+    width: 100%;
+    border: 2px solid black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    color: aliceblue;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.SideBarList .createProject {
+    height: 60px;
+    width: 100%;
+    border: 2px solid black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    color: aliceblue;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.SideBarList .home {
     height: 60px;
     width: 100%;
     border: 2px solid black;
@@ -27,19 +56,41 @@
 
 }
 
-.SideBarList .row:hover{
+.SideBarList .row:hover {
     cursor: pointer;
     background-color: rgb(218, 240, 120);
 }
-.row #icon{
+
+.SideBarList .createProject:hover {
+    cursor: pointer;
+    background-color: rgb(218, 240, 120);
+}
+
+.SideBarList .home:hover {
+    cursor: pointer;
+    background-color: rgb(8, 206, 91);
+}
+
+.row #icon {
     flex: 30%;
-    display:  grid;
+    display: grid;
     place-items: center;
 }
-.row #title{
+
+.row #title {
     flex: 70%;
 }
 
-.SideBarList #Active{
+.home #icon {
+    flex: 30%;
+    display: grid;
+    place-items: center;
+}
+
+.home #title {
+    flex: 70%;
+}
+
+.SideBarList #Active {
     background-color: aqua;
 }
