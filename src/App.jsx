@@ -4,7 +4,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { CssBaseline } from '@mui/material';
 import SigninPage from './pages/SigninPage';
-import RouterApp from './routes/RouterApp.js';
+import RouterApp from './routes/RouterApp';
 import './App.css'
 function App() {
   return (

@@ -1,13 +1,16 @@
 import React from 'react';
 
-import SearchAppBar from './studentComponent/navBar/navBar';
-import StudentProject from './studentDashBoard/studentProject';
+import SideBar from '../../components/studentComponent/sideBar/sideBar';
+import SearchAppBar from '../../components/studentComponent/navBar/navBar';
+import StudentProject from '../../components/studentDashBoard/studentProject';
+
 const StudentPage = () => {
     return (
         <div >
+            {/* <SideBar /> */}
             <SearchAppBar />
+            <div style={{ justifyContent: 'center', alignItems: 'center', height: '70vh', width: '100%' }}>
 
-            <div style={{  }}>
                 <StudentProject />
             </div>
         </div>

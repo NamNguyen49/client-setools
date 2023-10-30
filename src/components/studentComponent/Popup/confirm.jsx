@@ -24,7 +24,7 @@ const Delete = ({ openConfirm, onCloseConfirm, onDelete }) => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure delet this task
+                        Are you sure delete this task
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
