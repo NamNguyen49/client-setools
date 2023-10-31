@@ -3,6 +3,7 @@ import { useDrop } from "react-dnd";
 
 import Modal from '@mui/material/Modal';
 
+import TextField from '@mui/material/TextField';
 export default function Column({
   children,
   className,
@@ -25,48 +26,63 @@ export default function Column({
 
 
   const body = (
-    <div className="modalContainer">
-      <h2>Create Task</h2>
-      <form onSubmit={handleModalSave}>
-        <div>
-          <label htmlFor="taskName">Task Name:</label>
-          <input
+    <div className="modalContainer" >
+      <h2 style={{ textAlign: 'center' }}>Create Task</h2>
+      <form onSubmit={handleModalSave} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+
+        <div style={{ marginTop: "10px" }}>
+          <label htmlFor="taskName" className="input-task">Task Name:</label><br />
+          <TextField
             id="taskName"
+            className="NameTask"
             onChange={handleModalDataChange}
             value={modalData}
             type="text"
             placeholder="Enter Task Name"
+            sx={{ width: '120%' }}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="assignee">Người phụ trách:</label>
-          <input
-            id="assignee"
-            onChange={handleAssigneeChange} // Thêm hàm xử lý cho Người phụ trách
-            type="text"
-            placeholder="Enter Assignee"
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description:</label>
-          <input
+
+        <div style={{ marginTop: "10px" }}>
+          <label htmlFor="description" className="input-task">Description:</label>
+          <br />
+          <TextField
             id="description"
-            onChange={handleDescriptionChange} // Thêm hàm xử lý cho Description
+            className="DescriptionTask"
+            onChange={handleDescriptionChange}
             type="text"
             placeholder="Enter Description"
+            multiline
+            sx={{ width: '101.5%' }}
+            required
           />
         </div>
-        <div>
-          <label htmlFor="deadline">Thời hạn:</label>
-          <input
-            id="deadline"
-            onChange={handleDeadlineChange} // Thêm hàm xử lý cho Thời hạn
+
+
+        <div style={{ marginTop: "10px" }}>
+          <label htmlFor="assignee" className="input-task">Email Assignee:</label><br />
+          <TextField
+            id="assignee"
+            className="StudentId"
+            sx={{ width: '120%' }}
+            onChange={handleAssigneeChange}
             type="text"
-            placeholder="Enter Deadline"
+            placeholder="Enter Assignee"
+            required
           />
         </div>
-        <br />
-        <button type="submit">Save</button>
+        <div style={{ marginTop: "10px" }}>
+          <label htmlFor="deadline" className="input-task">Deadline:</label><br />
+          <input
+            className="Deadline"
+            type="date"
+            id="deadline"
+            onChange={handleDeadlineChange}
+            requiredx 
+          />
+        </div>
+        <button type="submit" style={{ marginTop: "10px" }}>Save</button>
       </form>
     </div>
   );
@@ -88,7 +104,7 @@ export default function Column({
             className="progressBar"
             style={{ display: "inline-block", marginLeft: "2px" }}
           >
-            {progress}%
+            {/* {progress}% */}
           </p>
         )}
         <Modal open={open} onClose={handleClose}>

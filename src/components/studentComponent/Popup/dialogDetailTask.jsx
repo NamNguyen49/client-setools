@@ -113,6 +113,12 @@ function DetailTaskPopup({ open, onClose, taskData }) {
                     Close
                 </Button>
             </DialogActions>
+            <ToastContainer />
+            <Delete
+                openConfirm={openConfirm}
+                onCloseConfirm={() => setOpenConfirm(false)}
+                onDelete={() => DeleteById()}
+            />
         </Dialog>
     );
 }

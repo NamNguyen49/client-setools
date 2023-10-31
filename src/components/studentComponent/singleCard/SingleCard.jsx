@@ -3,13 +3,18 @@ import { useDrag, useDrop } from "react-dnd";
 import { useRef, useState } from "react";
 import DialogDetailTask from "../Popup/dialogDetailTask"
 export default function SingleCard({
+<<<<<<< HEAD
   taskData,
+=======
+  id,
+>>>>>>> thinh
   name,
   setItems,
   username,
   index,
   moveCardHandler,
-  columnsArr
+  columnsArr,
+  
 }) {
   const changeItemColumn = (currentItem, columnName) => {
     setItems((prevState) => {
@@ -23,7 +28,7 @@ export default function SingleCard({
   };
 
   const ref = useRef(null);
-
+  
   const [, drop] = useDrop({
     accept: "Card",
     hover(item, monitor) {
@@ -90,22 +95,35 @@ export default function SingleCard({
 
   drag(drop(ref));
   const [openDetailTask, setOpenDetailTask] = useState(false);
-  const HandleDetailsTask = () => {
+  const [keyDetail, setKeyDetail] = useState("");
+  const HandleDetailsTask = (id) => {
+    setKeyDetail(id)
+    console.log(id+" TETS")
     setOpenDetailTask(true);
   }
   return (
-    <div ref={ref} style={{ opacity }} className="singleCard">
-      <div className="card" onClick={HandleDetailsTask}>
-        <h4 className="titleCard">{name}</h4>
-        <h5 className="User">{username}</h5>
+    <div ref={ref} style={{ opacity }} className="singleCard" >
+      <div className="card" onClick={() => HandleDetailsTask(id)}>
+        <h4 className="titleCard">{username}</h4>
+        <h5 className="User">{name}</h5>
       </div>
       <DialogDetailTask
         open={openDetailTask}
         onClose={() => setOpenDetailTask(false)}
+<<<<<<< HEAD
         taskData={taskData}
+=======
+        cardKey={keyDetail}
+        
+>>>>>>> thinh
       />
     </div>
+    
   );
+  
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> thinh
