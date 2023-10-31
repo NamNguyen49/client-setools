@@ -10,6 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import SingleCard from "../studentComponent/singleCard/SingleCard";
 import Modalpopup from "../studentComponent/Popup/Modalpopup";
+import MemberList from './MemberList'
 export default function App() {
   const { ToDo, InProgress, Review, Done } = ColumnNames;
   const [progress, setProgress] = useState("");
@@ -159,9 +160,9 @@ export default function App() {
     );
   };
 
-  const handleAddMember = () => {
-    setOpenCreateGroup(true);
-  }
+  // const handleAddMember = () => {
+  //   setOpenCreateGroup(true);
+  // }
 
   const handleModalDataChange = (e) => {
     setModalData(e.target.value);
@@ -179,22 +180,87 @@ export default function App() {
     setDeadline(e.target.value);
   };
 
+  const [members, setMembers] = useState([]);
+  const [email, setEmail] = useState("");
+  // const handleAddMember = () => {
+  //   // Kiểm tra tính hợp lệ của email
+  //   if (!validateEmail(email)) {
+  //     // Hiển thị thông báo lỗi hoặc thực hiện xử lý khác
+  //     console.error("Invalid email address");
+  //     return;
+  //   }
+
+  //   // Gửi email lên mock API để thêm vào danh sách member
+  //   fetch('https://64a6238b00c3559aa9c06117.mockapi.io/manageContact', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ email }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Gửi thành công, có thể cập nhật danh sách member
+  //       // Cập nhật danh sách member ở đây (nếu bạn hiển thị danh sách member)
+  //       setEmail(""); // Xóa email trong trường input
+
+  //       // Sau khi thêm email mới, lấy thông tin thành viên qua địa chỉ email
+  //       fetch(`https://your-api-url.com/members?email=${email}`)
+  //         .then(response => response.json())
+  //         .then(memberData => {
+  //           // memberData là thông tin của thành viên có địa chỉ email tương ứng
+  //           // Sử dụng thông tin này để hiển thị số lượng người tham gia dự án hoặc thực hiện các tác vụ khác
+  //           console.log("Member Data:", memberData);
+  //         })
+  //         .catch(error => {
+  //           console.error(error);
+  //         });
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }
+
+  const handleAddMember = () => {
+    // Kiểm tra xem email người dùng nhập liệu có tồn tại trong danh sách mock không
+    fetch('https://64a6238b00c3559aa9c06117.mockapi.io/manageContact')
+      .then(response => response.json())
+      .then(data => {
+        const emailExistsInMock = data.some(member => member.email === email);
+
+        if (!emailExistsInMock) {
+          console.error('Email not found in mock data');
+          return;
+        }
+
+        // Email hợp lệ, thêm vào danh sách members và render ra màn hình
+        setMembers([...members, { email }]);
+        setEmail(''); // Xóa email trong trường input sau khi thêm
+      })
+      .catch(error => {
+        console.error('Error fetching data from mock API:', error);
+      });
+  }
+
+
+
+  const validateEmail = (email) => {
+    // Đây là một ví dụ đơn giản để kiểm tra định dạng email, bạn có thể sử dụng biểu thức chính quy hoặc thư viện để kiểm tra email một cách chi tiết hơn.
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
+
+
   return (
     <>
-      <div className="container" style={{
-        marginTop: "10px", marginBottom: "10px", justifyContent: "flex-start"
-        , width: "50%", marginLeft: "24%"
-      }
-      }>
-        <Button variant="contained" onClick={handleAddMember} > Add member</Button>
-        <Box
-          sx={{
-            width: 500,
-            maxWidth: '100%',
-          }}
-        >
-          <TextField size="small" fullWidth label="Email member" name='email' id="fullWidth" />
-        </Box>
+      <div>
+        <input
+          type="text"
+          placeholder="Enter email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <Button onClick={handleAddMember}>Add Member</Button>
       </div>
       <div className="container" style={{ justifyContent: "center" }}>
         <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
@@ -228,7 +294,11 @@ export default function App() {
           open={openCreateGroup}
           onClose={() => setOpenCreateGroup(false)}
         /> */}
+
+
       </div>
+
+      <MemberList members={members} />
     </>
   );
 }
