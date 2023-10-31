@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { useRef, useState } from "react";
 import DialogDetailTask from "../Popup/dialogDetailTask"
 export default function SingleCard({
+  taskData,
   name,
   setItems,
   username,
@@ -101,7 +102,10 @@ export default function SingleCard({
       <DialogDetailTask
         open={openDetailTask}
         onClose={() => setOpenDetailTask(false)}
+        taskData={taskData}
       />
     </div>
   );
 }
+
+

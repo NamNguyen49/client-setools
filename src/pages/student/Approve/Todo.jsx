@@ -1,4 +1,4 @@
-import React ,{useState}from 'react'
+import React, { useState } from 'react'
 import './Approve.css'
 import AddIcon from '@mui/icons-material/Add';
 
@@ -6,7 +6,7 @@ function Todo() {
     const [contents, setContents] = useState([]);
     const handleCreateTask = () => {
         const newContent = (
-            <div className='Content' key={contents.length} style={{display:'flex', justifyContent:'space-between'}}>
+            <div className='Content' key={contents.length} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ marginLeft: '10px', }}>
                     <div>Tên task</div>
                     <div>Người làm</div>

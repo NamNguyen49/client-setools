@@ -10,7 +10,7 @@ export default function Column({
   progressPresent = false,
   buttonPresent = false,
   handleModalSave,
-  handleModalDataChange,handleAssigneeChange,handleDescriptionChange,handleDeadlineChange,
+  handleModalDataChange, handleAssigneeChange, handleDescriptionChange, handleDeadlineChange,
   handleOpen,
   handleClose,
   modalData,
@@ -21,6 +21,8 @@ export default function Column({
     accept: "Card",
     drop: () => ({ name: title })
   });
+
+
 
   const body = (
     <div className="modalContainer">
@@ -97,3 +99,6 @@ export default function Column({
     </div>
   );
 }
+
+
+
