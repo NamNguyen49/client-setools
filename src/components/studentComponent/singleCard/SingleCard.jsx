@@ -3,18 +3,14 @@ import { useDrag, useDrop } from "react-dnd";
 import { useRef, useState } from "react";
 import DialogDetailTask from "../Popup/dialogDetailTask"
 export default function SingleCard({
-<<<<<<< HEAD
-  taskData,
-=======
   id,
->>>>>>> thinh
   name,
   setItems,
   username,
   index,
   moveCardHandler,
   columnsArr,
-  
+
 }) {
   const changeItemColumn = (currentItem, columnName) => {
     setItems((prevState) => {
@@ -28,7 +24,7 @@ export default function SingleCard({
   };
 
   const ref = useRef(null);
-  
+
   const [, drop] = useDrop({
     accept: "Card",
     hover(item, monitor) {
@@ -98,7 +94,7 @@ export default function SingleCard({
   const [keyDetail, setKeyDetail] = useState("");
   const HandleDetailsTask = (id) => {
     setKeyDetail(id)
-    console.log(id+" TETS")
+    console.log(id + " TETS")
     setOpenDetailTask(true);
   }
   return (
@@ -110,20 +106,11 @@ export default function SingleCard({
       <DialogDetailTask
         open={openDetailTask}
         onClose={() => setOpenDetailTask(false)}
-<<<<<<< HEAD
-        taskData={taskData}
-=======
         cardKey={keyDetail}
-        
->>>>>>> thinh
+
       />
     </div>
-    
+
   );
-  
+
 }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> thinh

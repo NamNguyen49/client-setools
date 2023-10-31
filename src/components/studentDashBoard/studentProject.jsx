@@ -3,7 +3,7 @@ import "./style.css";
 import Column from "../studentComponent/column/Column";
 import { ColumnNames } from "../constants";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Stack, TextField } from "@mui/material";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -216,7 +216,7 @@ export default function App() {
                 title={e.title}
                 progress={progress}
                 className="column"
-                style={{ height: calculateColumnHeight(e.title) }} 
+                style={{ height: calculateColumnHeight(e.title) }}
 
               >
                 {returnItemsForColumn(e.title)}
