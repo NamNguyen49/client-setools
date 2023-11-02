@@ -1,0 +1,37 @@
+.button-search-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .button-change-page {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .search-container {
+    align-items: flex-end;
+ 
+   
+  }
+ 
+  @media (max-width: 1000px) {
+    .BoxContainer {
+      margin-right: 100px;
+  
+      padding-left: 2.5%;
+      padding-right: 2.5%;
+      width: 700px !important;
+    }
+  }
+  @media (max-width: 50000px) {
+    .BoxContainer {
+      margin-right: 100px;
+      
+      padding-left: 2%;
+      padding-right: 2%;
+      width: 100% !important;
+    }
+
+  }
+  
