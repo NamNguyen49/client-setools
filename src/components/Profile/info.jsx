@@ -9,9 +9,9 @@ const Info = () => {
                     <Grid item xs={12} sm={6}>
                         <Paper
                             style={{
-                                backgroundColor: 'white', // White background
-                                border: '1px solid #f5f5f5', // 1px border with color #f5f5f5
-                                // Add more styles as needed
+                                backgroundColor: 'white',
+                                border: '1px solid #f5f5f5',
+
                             }}
                         >
                             <div className="panel panel-default">
@@ -35,7 +35,7 @@ const Info = () => {
                             style={{
                                 backgroundColor: 'white',
                                 border: '1px solid #f5f5f5',
-                                padding: '20px', // Add padding to the Paper container
+                                padding: '20px',
                             }}
                         >
                             <form className="form-horizontal">
@@ -145,25 +145,7 @@ const Info = () => {
                                         <Button type="reset" className="btn btn-default">Cancel</Button>
                                     </div>
                                 </div>
-                                {/*
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormGroup>
-                                            <FormControlLabel
-                                                control={<Checkbox id="checkbox_1" />}
-                                                label="Make this account public"
-                                            />
-                                        </FormGroup>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Button variant="contained" color="primary" type="submit">
-                                            Submit
-                                        </Button>
-                                        <Button variant="outlined" color="default" type="reset">
-                                            Cancel
-                                        </Button>
-                                    </Grid>
-                                </Grid> */}
+
                             </div>
 
                         </Paper>

@@ -7,7 +7,7 @@ import StudentProject from '../../components/studentDashBoard/studentProject';
 const StudentPage = () => {
     return (
         <div >
-            {/* <SideBar /> */}
+
             <SearchAppBar />
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '70vh', width: '100%' }}>
 
