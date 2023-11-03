@@ -1,8 +1,14 @@
 import { Button, Stack, TextField, Typography, colors } from '@mui/material';
 import React from 'react';
 import { ScreenMode } from '../pages/SigninPage';
+import { GoogleLogin } from 'react-google-login';
+// import GithubLogin from 'react-github-login';
 
+import { useNavigate } from 'react-router-dom';
 const SigninForm = ({ onSwitchMode }) => {
+
+  const navigate = useNavigate();
+
   return (
     <Stack
       justifyContent="center"
@@ -18,10 +24,10 @@ const SigninForm = ({ onSwitchMode }) => {
       }}>
         <Stack>
           <Typography variant='h4' fontWeight={600} color={colors.grey[800]}>
-            Welcome back
+            Welcome SETOOL
           </Typography>
           <Typography color={colors.grey[600]}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit
+            Elevate Success with SETOOL Project Management
           </Typography>
         </Stack>
 
@@ -45,9 +51,40 @@ const SigninForm = ({ onSwitchMode }) => {
                 bgcolor: colors.grey[600]
               }
             }}
+            onClick={() => {
+
+              navigate('/student');
+            }}
           >
             Sign in
           </Button>
+        </Stack>
+
+        <Stack spacing={2}>
+          <GoogleLogin
+            clientId="680986507255-6hqu7nnvr27a5s60lq3m50231lisrq3q.apps.googleusercontent.com"
+            buttonText="Sign in with Google"
+            onSuccess={response => {
+              // Handle successful Google login
+              navigate('/student');
+              console.log(response);
+            }}
+            onFailure={error => {
+              // Handle Google login failure
+              console.error(error);
+            }}
+          />
+          {/* <GithubLogin
+    clientId="YOUR_GITHUB_CLIENT_ID"
+    onSuccess={response => {
+      // Handle successful GitHub login
+      console.log(response);
+    }}
+    onFailure={error => {
+      // Handle GitHub login failure
+      console.error(error);
+    }}
+  /> */}
         </Stack>
 
         <Stack direction="row" spacing={2}>

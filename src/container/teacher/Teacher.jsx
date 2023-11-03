@@ -378,10 +378,10 @@ export default function Teacher() {
                                                     <TableCell align="center">{row.phone}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
                                                     <TableCell align="center">
-                                                    <Button variant="contained" color="primary" align="center">
-                                                        {row.note}
+                                                        <Button variant="contained" color="primary" align="center">
+                                                            {row.note}
                                                         </Button>
-                                                        </TableCell>
+                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
@@ -494,10 +494,10 @@ export default function Teacher() {
                                                     <TableCell align="center">{row.phone}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
                                                     <TableCell align="center">
-                                                    <Button variant="contained" color="primary" align="center">
-                                                        {row.note}
+                                                        <Button variant="contained" color="primary" align="center">
+                                                            {row.note}
                                                         </Button>
-                                                        </TableCell>
+                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
@@ -611,10 +611,10 @@ export default function Teacher() {
                                                     <TableCell align="center">{row.project}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
                                                     <TableCell align="center">
-                                                    <Button variant="contained" color="primary" align="center">
-                                                        {row.note}
+                                                        <Button variant="contained" color="primary" align="center">
+                                                            {row.note}
                                                         </Button>
-                                                        </TableCell>
+                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
@@ -623,10 +623,10 @@ export default function Teacher() {
                                                                 onClick={() => handlePass(row)}
                                                             >
                                                                 Unban
-                                                                
+
                                                             </Button>
 
-                                                            
+
                                                         </ButtonGroup>
                                                     </TableCell>
                                                 </TableRow>
@@ -657,26 +657,26 @@ export default function Teacher() {
             </div>
             {/* <PopUpNote open={openPopup} onClose={closePopup} note={noteUser} /> */}
             <div
-        style={{
-          height: "150px",
-          backgroundColor: "#D6DDFF",
-          marginTop: "0rem",
-        }}
-      >
-        <Box sx={{ textAlign: "center", paddingTop: "-2rem" }}>
-          <AiFillFacebook style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
+                style={{
+                    height: "150px",
+                    backgroundColor: "#D6DDFF",
+                    marginTop: "0rem",
+                }}
+            >
+                <Box sx={{ textAlign: "center", paddingTop: "-2rem" }}>
+                    <AiFillFacebook style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
 
-          <AiTwotoneMail style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
+                    <AiTwotoneMail style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
 
-          <AiFillTwitterSquare style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
-          <Typography sx={{ color: "#9CA3AF" }}>
-            Made by <span style={{ fontWeight: "bolder" }}>SE TOOL</span>
-          </Typography>
-          <Typography sx={{ color: "#9CA3AF" }}>
-            © 2023 <span style={{ fontWeight: "bolder" }}>SWP391</span>. All rights reserved
-          </Typography>
-        </Box>
-      </div>
+                    <AiFillTwitterSquare style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
+                    <Typography sx={{ color: "#9CA3AF" }}>
+                        Made by <span style={{ fontWeight: "bolder" }}>SE TOOL</span>
+                    </Typography>
+                    <Typography sx={{ color: "#9CA3AF" }}>
+                        © 2023 <span style={{ fontWeight: "bolder" }}>SWP391</span>. All rights reserved
+                    </Typography>
+                </Box>
+            </div>
         </>
     );
 } 

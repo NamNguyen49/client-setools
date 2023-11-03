@@ -1,25 +1,45 @@
+
+
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import SideBar from '../sideBar/sideBar'
+import SideBar from '../sideBar/sideBar';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import { useNavigate } from 'react-router-dom';
+import Profile from '../../../pages/Profile';
 function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const toggleDrawer = (open) => {
     setDrawerOpen(open);
   };
 
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleProfileClick = () => {
+    navigate('/profile');
+    handleClose();
+  };
+
   return (
     <div>
       <AppBar position="static">
-        <Toolbar sx={{height:"3%"}}>
+        <Toolbar sx={{ height: "3%" }}>
           <IconButton
             size="large"
             edge="start"
@@ -30,17 +50,47 @@ function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end', marginLeft: 'auto', marginBottom: '0.3 %', marginRight:'5%' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginLeft: 'auto',
+              marginBottom: '0.3%',
+              marginRight: '5%',
+            }}
+          >
             <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField id="input-with-sx" label="Search" variant="standard"  sx={{width:'250px'}}/>
+            <TextField id="input-with-sx" label="Search" variant="standard" sx={{ width: '250px' }} />
           </Box>
-
-          <Box>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
             <AccountCircleIcon sx={{ fontSize: '30px', paddingRight: "10%" }} />
-          </Box>
-
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
-
         <SwipeableDrawer
           anchor="left" // Chỉ định vị trí của drawer
           open={drawerOpen}
@@ -58,3 +108,4 @@ function NavBar() {
 }
 
 export default NavBar;
+

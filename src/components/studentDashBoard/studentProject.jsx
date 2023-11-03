@@ -9,8 +9,9 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import SingleCard from "../studentComponent/singleCard/SingleCard";
-import Modalpopup from "../studentComponent/Popup/Modalpopup";
+
 import MemberList from './MemberList'
+import Footer from '../Footer/Footer'
 export default function App() {
   const { ToDo, InProgress, Review, Done } = ColumnNames;
   const [progress, setProgress] = useState("");
@@ -36,11 +37,11 @@ export default function App() {
         if (!response.ok) {
           throw new Error('Lỗi mạng - Không thể kết nối đến server.');
         }
-        return response.json(); // Chuyển đổi dữ liệu JSON từ phản hồi
+        return response.json();
       })
       .then(data => {
         setItems(data)
-        console.log(data); // In dữ liệu lấy được từ server lên console
+        console.log(data);
       })
       .catch(error => {
         console.error(error);
@@ -160,9 +161,7 @@ export default function App() {
     );
   };
 
-  // const handleAddMember = () => {
-  //   setOpenCreateGroup(true);
-  // }
+
 
   const handleModalDataChange = (e) => {
     setModalData(e.target.value);
@@ -182,47 +181,9 @@ export default function App() {
 
   const [members, setMembers] = useState([]);
   const [email, setEmail] = useState("");
-  // const handleAddMember = () => {
-  //   // Kiểm tra tính hợp lệ của email
-  //   if (!validateEmail(email)) {
-  //     // Hiển thị thông báo lỗi hoặc thực hiện xử lý khác
-  //     console.error("Invalid email address");
-  //     return;
-  //   }
 
-  //   // Gửi email lên mock API để thêm vào danh sách member
-  //   fetch('https://64a6238b00c3559aa9c06117.mockapi.io/manageContact', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ email }),
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       // Gửi thành công, có thể cập nhật danh sách member
-  //       // Cập nhật danh sách member ở đây (nếu bạn hiển thị danh sách member)
-  //       setEmail(""); // Xóa email trong trường input
-
-  //       // Sau khi thêm email mới, lấy thông tin thành viên qua địa chỉ email
-  //       fetch(`https://your-api-url.com/members?email=${email}`)
-  //         .then(response => response.json())
-  //         .then(memberData => {
-  //           // memberData là thông tin của thành viên có địa chỉ email tương ứng
-  //           // Sử dụng thông tin này để hiển thị số lượng người tham gia dự án hoặc thực hiện các tác vụ khác
-  //           console.log("Member Data:", memberData);
-  //         })
-  //         .catch(error => {
-  //           console.error(error);
-  //         });
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }
 
   const handleAddMember = () => {
-    // Kiểm tra xem email người dùng nhập liệu có tồn tại trong danh sách mock không
     fetch('https://64a6238b00c3559aa9c06117.mockapi.io/manageContact')
       .then(response => response.json())
       .then(data => {
@@ -233,7 +194,6 @@ export default function App() {
           return;
         }
 
-        // Email hợp lệ, thêm vào danh sách members và render ra màn hình
         setMembers([...members, { email }]);
         setEmail(''); // Xóa email trong trường input sau khi thêm
       })
@@ -245,7 +205,6 @@ export default function App() {
 
 
   const validateEmail = (email) => {
-    // Đây là một ví dụ đơn giản để kiểm tra định dạng email, bạn có thể sử dụng biểu thức chính quy hoặc thư viện để kiểm tra email một cách chi tiết hơn.
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   }
@@ -290,15 +249,14 @@ export default function App() {
             );
           })}
         </DndProvider>
-        {/* <Modalpopup
-          open={openCreateGroup}
-          onClose={() => setOpenCreateGroup(false)}
-        /> */}
+
 
 
       </div>
 
       <MemberList members={members} />
+
+      <Footer />
     </>
   );
 }

@@ -33,7 +33,7 @@ export function SidebarData() {
         ...projects.map((projectName, index) => ({
             title: projectName,
             icon: <LocalCafeIcon />,
-            link: `/project/${index}`, // Thay đổi link dựa trên index hoặc dữ liệu khác nếu cần
+            link: `/student`, // Thay đổi link dựa trên index hoặc dữ liệu khác nếu cần
         })),
     ];
 }

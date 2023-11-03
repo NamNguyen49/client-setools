@@ -5,7 +5,7 @@ import SigninPage from '../pages/SigninPage';
 import StudentPage from '../pages/student/studentPage';
 import ListUser from '../container/Admin/ListUser';
 import Teacher from '../container/teacher/Teacher';
-
+import Profile from '../pages/Profile';
 function RouterApp() {
     return (
         <Router>
@@ -15,6 +15,7 @@ function RouterApp() {
                 <Route path="/student" element={<StudentPage />} />
                 <Route path="/admin" element={<ListUser />} />
                 <Route path="/teacher" element={<Teacher />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </Router>
     );
