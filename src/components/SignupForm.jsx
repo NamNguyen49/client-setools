@@ -23,7 +23,7 @@ const SignupForm = ({ onSwitchMode }) => {
       .then((response) => {
 
         console.log('Tạo tài khoản thành công', response.data);
-        navigate('/');
+        onSwitchMode(ScreenMode.SIGN_IN);
       })
       .catch((error) => {
 
