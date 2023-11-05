@@ -1,5 +1,5 @@
 import { ScreenMode } from '../pages/SigninPage';
-import { GoogleLogin } from 'react-google-login';
+
 import React, { useState } from 'react';
 import { Button, Stack, TextField, Typography, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -101,32 +101,8 @@ const SigninForm = ({ onSwitchMode }) => {
           </Button>
         </Stack>
 
-        <Stack spacing={2}>
-          <GoogleLogin
-            clientId="680986507255-6hqu7nnvr27a5s60lq3m50231lisrq3q.apps.googleusercontent.com"
-            buttonText="Sign in with Google"
-            onSuccess={response => {
-              // Handle successful Google login
-              navigate('/student');
-              console.log(response);
-            }}
-            onFailure={error => {
-              // Handle Google login failure
-              console.error(error);
-            }}
-          />
-          {/* <GithubLogin
-    clientId="YOUR_GITHUB_CLIENT_ID"
-    onSuccess={response => {
-      // Handle successful GitHub login
-      console.log(response);
-    }}
-    onFailure={error => {
-      // Handle GitHub login failure
-      console.error(error);
-    }}
-  /> */}
-        </Stack>
+
+
 
         <Stack direction="row" spacing={2}>
           <Typography>Don't have an account?</Typography>
@@ -142,7 +118,7 @@ const SigninForm = ({ onSwitchMode }) => {
           </Typography>
         </Stack>
       </Stack>
-    </Stack>
+    </Stack >
   );
 };
 
