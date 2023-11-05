@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { Button, Stack, TextField, Typography, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/authActions';
 
 const SigninForm = ({ onSwitchMode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSignIn = () => {
@@ -16,8 +18,6 @@ const SigninForm = ({ onSwitchMode }) => {
       email,
       password,
     };
-
-
     axios.get('https://6547582e902874dff3ac2f96.mockapi.io/account/user')
       .then((response) => {
         if (response.status === 200) {
@@ -31,6 +31,7 @@ const SigninForm = ({ onSwitchMode }) => {
             } else {
               console.error('Vai trò không hợp lệ');
             }
+            dispatch(loginSuccess(matchedUser));
           } else {
             console.error('Đăng nhập thất bại: Tên người dùng hoặc mật khẩu không đúng.');
           }
@@ -42,6 +43,8 @@ const SigninForm = ({ onSwitchMode }) => {
         console.error('Lỗi đăng nhập: ', error);
       });
   };
+
+
 
   return (
     <Stack
@@ -99,7 +102,30 @@ const SigninForm = ({ onSwitchMode }) => {
         </Stack>
 
         <Stack spacing={2}>
-          {/* Thêm các phần khác (ví dụ: GoogleLogin) vào đây */}
+          <GoogleLogin
+            clientId="680986507255-6hqu7nnvr27a5s60lq3m50231lisrq3q.apps.googleusercontent.com"
+            buttonText="Sign in with Google"
+            onSuccess={response => {
+              // Handle successful Google login
+              navigate('/student');
+              console.log(response);
+            }}
+            onFailure={error => {
+              // Handle Google login failure
+              console.error(error);
+            }}
+          />
+          {/* <GithubLogin
+    clientId="YOUR_GITHUB_CLIENT_ID"
+    onSuccess={response => {
+      // Handle successful GitHub login
+      console.log(response);
+    }}
+    onFailure={error => {
+      // Handle GitHub login failure
+      console.error(error);
+    }}
+  /> */}
         </Stack>
 
         <Stack direction="row" spacing={2}>

@@ -18,16 +18,7 @@ import {
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import SearchAppBar from '../components/studentComponent/navBar/navBar';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+
 // import Pagination from "@mui/material/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -35,9 +26,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { toast } from "react-toastify";
 import { GridSearchIcon } from "@mui/x-data-grid";
-import { AiFillFacebook } from "react-icons/ai";
-import { AiTwotoneMail } from "react-icons/ai";
-import { AiFillTwitterSquare } from "react-icons/ai";
+
 import Footer from "../components/Footer/Footer";
 
 const API_ENDPOINT =
@@ -584,7 +573,7 @@ export default function HomePage() {
                     </TabContext>
                 </Box>
             </div>
-            {/* <PopUpNote open={openPopup} onClose={closePopup} note={noteUser} /> */}
+
             <Footer />
         </>
     );
