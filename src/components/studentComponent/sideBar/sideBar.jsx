@@ -3,11 +3,11 @@ import React from 'react';
 import './sideBar.css';
 import { SidebarData } from './sideBarData';
 import Modalpopup from '../../CreateProject';
-import { useSelector } from 'react-redux';
+
 
 function SideBar({ openDrawer }) {
   const data = SidebarData();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
 
   return (
     <div className='SideBar'>
@@ -31,13 +31,13 @@ function SideBar({ openDrawer }) {
           );
         })}
 
-        {isAuthenticated && (
-          <li className='col'>
-            <div id='icon'>
-              <Modalpopup />
-            </div>
-          </li>
-        )}
+
+        <li className='col'>
+          <div id='icon'>
+            <Modalpopup />
+          </div>
+        </li>
+
       </ul>
     </div>
   );

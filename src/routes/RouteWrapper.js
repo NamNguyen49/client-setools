@@ -7,7 +7,7 @@ const RouteWrapper = ({ element, isPrivate, ...rest }) => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     if (isPrivate && !isAuthenticated) {
-        return <Navigate to="/" />;
+        return <Navigate to="/student" />;
     }
 
 

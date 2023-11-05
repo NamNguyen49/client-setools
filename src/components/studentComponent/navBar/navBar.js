@@ -157,7 +157,8 @@ function NavBar() {
     handleClose();
   };
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
+    navigate('/');
+    handleClose();
   };
 
   return (
