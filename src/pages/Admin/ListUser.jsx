@@ -16,21 +16,15 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import Search from "@mui/icons-material/Search";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-// import Pagination from "@mui/material/Pagination";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import SendIcon from "@mui/icons-material/Send";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { toast } from "react-toastify";
 import { GridSearchIcon } from "@mui/x-data-grid";
@@ -39,7 +33,7 @@ import { AiTwotoneMail } from "react-icons/ai";
 import { AiFillTwitterSquare } from "react-icons/ai";
 
 const API_ENDPOINT =
-  // "http://10.88.55.108:9305/api/reccer/personal/getAll";
+
 
   "https://64a6238b00c3559aa9c06117.mockapi.io/manageContact";
 
@@ -67,26 +61,25 @@ export default function ListUser() {
     setSearchValue(event.target.value);
   };
 
-  //(waiting, pass,reject)
+
   const [value, setValue] = useState("waiting");
   const handleFilterClick = (event, newValue) => {
     setValue(newValue);
   };
   const navigate = useNavigate();
-  const handlePass = (row) => {
-    // Thực hiện chuyển ứng viên từ "waiting" sang "passed" và gọi API PUT để cập nhật trạng thái
-    const updatedRow = { ...row, status: "passed" };
+  const handleWaiting = (row) => {
+
+    const updatedRow = { ...row, status: "waiting" };
     axios
       .put(`${API_ENDPOINT}/${row.id}`, updatedRow)
       .then((response) => {
-        // Cập nhật lại dữ liệu trên client-side
+
         setData((prevData) =>
-          // prevData.map((item) => (item.id === row.id ? response.data : item))
-          //fake API
+
           prevData.filter((item) => item.id !== row.id)
         );
 
-        // Chuyển dòng dữ liệu từ "data" sang "passedData"
+
         setPassedData((prevData) => [...prevData, response.data]);
         toast.success("Pass Successful");
       })
@@ -95,19 +88,14 @@ export default function ListUser() {
       });
   };
   const handleReject = (row) => {
-    // Thực hiện chuyển ứng viên từ "waiting" sang "rejected" và gọi API PUT để cập nhật trạng thái
     const updatedRow = { ...row, status: "rejected" };
 
     axios
       .put(`${API_ENDPOINT}/${row.id}`, updatedRow)
       .then((response) => {
-        // Cập nhật lại dữ liệu trên client-side
         setData((prevData) =>
-          // prevData.map((item) => (item.id === row.id ? response.data : item))
-          //fake API
           prevData.filter((item) => item.id !== row.id)
         );
-        // Chuyển dòng dữ liệu từ "data" sang "rejectedData"
         setRejectedData((prevData) => [...prevData, response.data]);
         toast.error("Reject Successful");
       })
@@ -120,11 +108,9 @@ export default function ListUser() {
   const [passedData, setPassedData] = useState([]);
   const [rejectedData, setRejectedData] = useState([]);
   useEffect(() => {
-    // Đảm bảo giá trị ban đầu của "value" là "one"
     setValue("waiting");
   }, []);
 
-  // Phân trang
   const handlePageChange = (event, page) => {
     navigate(`/admin?page=${page}`);
   };
@@ -137,26 +123,33 @@ export default function ListUser() {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = page * itemsPerPage;
   const paginationData = data.slice(startIndex, endIndex);
-  //Call API
 
   useEffect(() => {
-    // Fetch contact data from the mock API
+
     axios
       .get(
         `https://64a6238b00c3559aa9c06117.mockapi.io/manageContact/?status=${value}`
 
-        // `http://10.88.55.108:9305/api/reccer/personal/getAll`
+
       )
       .then((response) => {
-        // setData(response.data.responseEntity.body.content);
-        // console.log('>>check api',data)
-        //fake api
+
         setData(response.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, [value]);
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+    handleClose();
+  };
+  const handleLogout = () => {
+    navigate('/');
+    handleClose();
+  };
+
 
   return (
     <>
@@ -166,20 +159,7 @@ export default function ListUser() {
           <AppBar position="static"
           >
             <Toolbar>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={auth}
-                      onChange={handleChange}
-                      aria-label="login switch"
 
-                    />
-
-                  }
-                  label={auth ? 'Logout' : 'Login'}
-                />
-              </FormGroup>
               <IconButton
                 size="large"
                 edge="start"
@@ -192,6 +172,46 @@ export default function ListUser() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 SE TOOL
               </Typography>
+              {/* Search */}
+              <Grid
+                item
+                xs={6}
+                sx={{
+                  maxWidth: "300px",
+                  flexGrow: 0,
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                }}
+              >
+                <div className="search-container">
+                  <TextField
+                    id="search"
+                    type="search"
+                    label="Search"
+                    value={searchValue}
+                    onChange={handleSearchChange}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          sx={{
+                            backgroundColor: "#inherit",
+                            "&:hover": {
+                              backgroundColor: "#inherit",
+                            },
+                            position: "absolute",
+                            right: 0,
+                            width: "50px",
+                            height: "100%",
+                            borderRadius: 0,
+                          }}
+                        >
+                          <GridSearchIcon sx={{ color: "white" }} />
+                        </IconButton>
+                      ),
+                    }}
+                  />
+                </div>
+              </Grid>
               {auth && (
                 <div>
                   <IconButton
@@ -219,8 +239,8 @@ export default function ListUser() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   </Menu>
                 </div>
               )}
@@ -250,14 +270,7 @@ export default function ListUser() {
                     label="List User"
                     value="waiting"
                   />
-                  {/* <Tab
-                    onClick={handlePageChange1}
-                    style={{
-                      fontWeight: "bold",
-                    }}
-                    label="Detail"
-                    value="passed"
-                  /> */}
+
                   <Tab
                     style={{
                       fontWeight: "bold",
@@ -268,46 +281,7 @@ export default function ListUser() {
                 </TabList>
               </Grid>
 
-              {/* Search */}
-              <Grid
-                item
-                xs={6}
-                sx={{
-                  maxWidth: "300px",
-                  flexGrow: 0,
-                  display: "flex",
-                  flexDirection: "row-reverse",
-                }}
-              >
-                <div className="search-container">
-                  <TextField
-                    id="search"
-                    type="search"
-                    label="Search"
-                    value={searchValue}
-                    onChange={handleSearchChange}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton
-                          sx={{
-                            backgroundColor: "#626AD1",
-                            "&:hover": {
-                              backgroundColor: "#626AD1",
-                            },
-                            position: "absolute",
-                            right: 0,
-                            width: "50px",
-                            height: "100%",
-                            borderRadius: 0,
-                          }}
-                        >
-                          <GridSearchIcon sx={{ color: "white" }} />
-                        </IconButton>
-                      ),
-                    }}
-                  />
-                </div>
-              </Grid>
+
             </Grid>
 
             <TabPanel value="waiting" sx={{ p: 0 }}>
@@ -347,12 +321,7 @@ export default function ListUser() {
                       >
                         Email
                       </TableCell>
-                      <TableCell
-                        sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                        align="center"
-                      >
-                        Responsible
-                      </TableCell>
+
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -377,15 +346,14 @@ export default function ListUser() {
                           <TableCell align="center">{row.project}</TableCell>
                           <TableCell align="center">{row.phone}</TableCell>
                           <TableCell align="center">{row.email}</TableCell>
-                          <TableCell align="center">{row.job}</TableCell>
                           <TableCell align="center">
                             <ButtonGroup sx={{ gap: "10px" }}>
                               <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => handlePass(row)}
+                                onClick={() => handleWaiting(row)}
                               >
-                                Detail
+                                Edit
                                 {console.log(passedData)}
                               </Button>
 
@@ -422,7 +390,7 @@ export default function ListUser() {
                 </div>
               </TableContainer>
             </TabPanel>
-            Bang Detal
+
             <TabPanel value="passed" sx={{ p: 0 }}>
               <TableContainer component={Paper}>
                 <Table
@@ -442,7 +410,7 @@ export default function ListUser() {
                       >
                         Role
                       </TableCell>
-                      
+
                       <TableCell
                         sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                         align="center"
@@ -461,12 +429,7 @@ export default function ListUser() {
                       >
                         Email
                       </TableCell>
-                      <TableCell
-                        sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                        align="center"
-                      >
-                        Responsible
-                      </TableCell>
+
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -491,7 +454,7 @@ export default function ListUser() {
                           <TableCell align="center">{row.project}</TableCell>
                           <TableCell align="center">{row.phone}</TableCell>
                           <TableCell align="center">{row.email}</TableCell>
-                          <TableCell align="center">{row.job}</TableCell>
+
                           <TableCell align="center">
                             <ButtonGroup sx={{ gap: "10px" }}>
                               <Button
@@ -560,7 +523,7 @@ export default function ListUser() {
                         sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                         align="center"
                       >
-                        Projects 
+                        Projects
                       </TableCell>
                       <TableCell
                         sx={{ fontWeight: "bolder", fontSize: "1rem" }}
@@ -574,12 +537,7 @@ export default function ListUser() {
                       >
                         Email
                       </TableCell>
-                      <TableCell
-                        sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                        align="center"
-                      >
-                        Responsible
-                      </TableCell>
+
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -603,33 +561,24 @@ export default function ListUser() {
                           <TableCell align="center">{row.score}</TableCell>
                           <TableCell align="center">{row.phone}</TableCell>
                           <TableCell align="center">{row.email}</TableCell>
-                          <TableCell align="center">{row.job}</TableCell>
                           <TableCell align="center">
                             <ButtonGroup sx={{ gap: "10px" }}>
                               <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => handlePass(row)}
+                                onClick={() => handleWaiting(row)}
                               >
                                 Unban
                                 {console.log(passedData)}
                               </Button>
 
-                              {/* <Button
-                                color="error"
-                                variant="outlined"
-                                onClick={() => handleReject(row)}
-                              >
-                                Ban
-                                {console.log(">>>>check", rejectedData)}
-                              </Button> */}
+
                             </ButtonGroup>
                           </TableCell>
                         </TableRow>
                       ))}
                   </TableBody>
                 </Table>
-                {/* hiện thị số trang  */}
                 <div
                   className="pagination"
                   style={{
@@ -651,7 +600,6 @@ export default function ListUser() {
           </TabContext>
         </Box>
       </div>
-      {/* <PopUpNote open={openPopup} onClose={closePopup} note={noteUser} /> */}
       <div
         style={{
           height: "150px",
