@@ -10,7 +10,6 @@ const SignupForm = ({ onSwitchMode }) => {
   const navigate = useNavigate();
 
   const handleCreateAccount = () => {
-
     const userCredentials = {
       username,
       email,
@@ -18,18 +17,28 @@ const SignupForm = ({ onSwitchMode }) => {
       role: 'student',
     };
 
-
-    axios.post('https://6547582e902874dff3ac2f96.mockapi.io/account/user', userCredentials)
+    axios.get('https://6547582e902874dff3ac2f96.mockapi.io/account/user?email=' + email)
       .then((response) => {
 
-        console.log('Tạo tài khoản thành công', response.data);
-        onSwitchMode(ScreenMode.SIGN_IN);
+        if (response.data.length > 0) {
+          alert('Email đã được đăng ký. Vui lòng sử dụng email khác.');
+        } else {
+
+          axios.post('https://6547582e902874dff3ac2f96.mockapi.io/account/user', userCredentials)
+            .then((response) => {
+              console.log('Tạo tài khoản thành công', response.data);
+              onSwitchMode(ScreenMode.SIGN_IN);
+            })
+            .catch((error) => {
+              console.error('Lỗi khi tạo tài khoản', error);
+            });
+        }
       })
       .catch((error) => {
-
-        console.error('Lỗi khi tạo tài khoản', error);
+        console.error('Lỗi khi kiểm tra email', error);
       });
   };
+
 
   return (
     <Stack
