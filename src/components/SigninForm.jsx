@@ -28,7 +28,10 @@ const SigninForm = ({ onSwitchMode }) => {
               navigate('/admin');
             } else if (matchedUser.role === 'student') {
               navigate('/student');
-            } else {
+            } else if (matchedUser.role === 'teacher') { // Add this check for "teacher"
+              navigate('/teacher');
+            }
+            else {
               console.error('Vai trò không hợp lệ');
             }
             dispatch(loginSuccess(matchedUser));
