@@ -16,12 +16,12 @@
 .SideBarList .row {
     height: 60px;
     width: 100%;
-    border: 2px solid black;
+    border: 2px solid rgba(0, 0, 0, 0.192);
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: row;
-    color: aliceblue;
+    color: rgb(9, 73, 129);
     justify-content: center;
     align-items: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

@@ -133,10 +133,12 @@ export default function App() {
             id={item.TaskId}
             name={item.StudentId}
             setItems={setItems}
-            username={item.DescriptionTask}
+            username={item.NameTask}
             index={index}
             moveCardHandler={moveCardHandler}
             columnsArr={columnsArr}
+            deadline={item.Deadline}
+            Approve={item.Approve}
           >
           </SingleCard>
         );
@@ -249,13 +251,8 @@ export default function App() {
             );
           })}
         </DndProvider>
-
-
-
       </div>
-
       <MemberList members={members} />
-
       <Footer />
     </>
   );

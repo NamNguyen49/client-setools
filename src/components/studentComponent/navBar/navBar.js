@@ -9,12 +9,15 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import SideBar from '../sideBar/sideBar';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
 import Profile from '../../../pages/Profile';
+import Typography from '@mui/material/Typography'
+import { Button } from 'bootstrap';
 function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,6 +43,7 @@ function NavBar() {
     <div>
       <AppBar position="static">
         <Toolbar sx={{ height: "3%" }}>
+
           <IconButton
             size="large"
             edge="start"
@@ -50,17 +54,42 @@ function NavBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Typography
+            variant="h6" component="div" 
+            sx={{
+              flexGrow: '1',
+              '&:hover': {
+                // Định rõ kiểu cho hiệu ứng hover tại đây
+                backgroundColor: 'lightblue', // Ví dụ: Đổi màu nền thành light blue khi di chuột qua
+              },
+              height: "100%",
+              marginRight: "73%"
+            }}
+          >
+            Project A
+          </Typography>
           <Box
             sx={{
               display: 'flex',
               alignItems: 'center',
               marginLeft: 'auto',
-              marginBottom: '0.3%',
-              marginRight: '5%',
+              marginBottom: '0.5%',
+              marginRight: '2%',
+              height: "40px",
+
             }}
           >
-            <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField id="input-with-sx" label="Search" variant="standard" sx={{ width: '250px' }} />
+            <TextField
+              id="input-with-icon-textfield"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
           </Box>
           <IconButton
             size="large"
@@ -101,6 +130,7 @@ function NavBar() {
           <div style={{ width: 250 }}>
             <SideBar />
           </div>
+
         </SwipeableDrawer>
       </AppBar>
     </div>
