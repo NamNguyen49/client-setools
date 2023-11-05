@@ -1,5 +1,5 @@
 
-
+import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -59,8 +59,9 @@ function NavBar() {
               marginRight: '5%',
             }}
           >
-            <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-            <TextField id="input-with-sx" label="Search" variant="standard" sx={{ width: '250px' }} />
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              SE TOOL
+            </Typography>
           </Box>
           <IconButton
             size="large"

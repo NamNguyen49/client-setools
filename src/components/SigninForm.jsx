@@ -1,13 +1,47 @@
-import { Button, Stack, TextField, Typography, colors } from '@mui/material';
-import React from 'react';
 import { ScreenMode } from '../pages/SigninPage';
 import { GoogleLogin } from 'react-google-login';
-// import GithubLogin from 'react-github-login';
-
+import React, { useState } from 'react';
+import { Button, Stack, TextField, Typography, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 const SigninForm = ({ onSwitchMode }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    const userCredentials = {
+      email,
+      password,
+    };
+
+
+    axios.get('https://6547582e902874dff3ac2f96.mockapi.io/account/user')
+      .then((response) => {
+        if (response.status === 200) {
+          const userList = response.data;
+          const matchedUser = userList.find((user) => user.email === userCredentials.email && user.password === userCredentials.password);
+          if (matchedUser) {
+            if (matchedUser.role === 'admin') {
+              navigate('/admin');
+            } else if (matchedUser.role === 'student') {
+              navigate('/student');
+            } else {
+              console.error('Vai trò không hợp lệ');
+            }
+          } else {
+            console.error('Đăng nhập thất bại: Tên người dùng hoặc mật khẩu không đúng.');
+          }
+        } else {
+          console.error('Lỗi khi lấy danh sách người dùng từ máy chủ API');
+        }
+      })
+      .catch((error) => {
+        console.error('Lỗi đăng nhập: ', error);
+      });
+  };
 
   return (
     <Stack
@@ -35,11 +69,18 @@ const SigninForm = ({ onSwitchMode }) => {
           <Stack spacing={2}>
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Email</Typography>
-              <TextField />
+              <TextField
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Stack>
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Password</Typography>
-              <TextField type='password' />
+              <TextField
+                type='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </Stack>
           </Stack>
           <Button
@@ -51,40 +92,14 @@ const SigninForm = ({ onSwitchMode }) => {
                 bgcolor: colors.grey[600]
               }
             }}
-            onClick={() => {
-
-              navigate('/student');
-            }}
+            onClick={handleSignIn}
           >
             Sign in
           </Button>
         </Stack>
 
         <Stack spacing={2}>
-          <GoogleLogin
-            clientId="680986507255-6hqu7nnvr27a5s60lq3m50231lisrq3q.apps.googleusercontent.com"
-            buttonText="Sign in with Google"
-            onSuccess={response => {
-              // Handle successful Google login
-              navigate('/student');
-              console.log(response);
-            }}
-            onFailure={error => {
-              // Handle Google login failure
-              console.error(error);
-            }}
-          />
-          {/* <GithubLogin
-    clientId="YOUR_GITHUB_CLIENT_ID"
-    onSuccess={response => {
-      // Handle successful GitHub login
-      console.log(response);
-    }}
-    onFailure={error => {
-      // Handle GitHub login failure
-      console.error(error);
-    }}
-  /> */}
+          {/* Thêm các phần khác (ví dụ: GoogleLogin) vào đây */}
         </Stack>
 
         <Stack direction="row" spacing={2}>

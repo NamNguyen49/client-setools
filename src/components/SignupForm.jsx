@@ -1,8 +1,36 @@
 import { Button, Stack, TextField, Typography, colors } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScreenMode } from '../pages/SigninPage';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const SignupForm = ({ onSwitchMode }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleCreateAccount = () => {
+
+    const userCredentials = {
+      name,
+      email,
+      password,
+      role: 'student',
+    };
+
+
+    axios.post('https://6547582e902874dff3ac2f96.mockapi.io/account/user', userCredentials)
+      .then((response) => {
+
+        console.log('Tạo tài khoản thành công', response.data);
+        navigate('/signin');
+      })
+      .catch((error) => {
+
+        console.error('Lỗi khi tạo tài khoản', error);
+      });
+  };
+
   return (
     <Stack
       justifyContent="center"
@@ -18,10 +46,10 @@ const SignupForm = ({ onSwitchMode }) => {
       }}>
         <Stack>
           <Typography variant='h4' fontWeight={600} color={colors.grey[800]}>
-            Create an account
+            SIGNUP
           </Typography>
           <Typography color={colors.grey[600]}>
-            Doloribus dolorem impedit aliquam sit veniam
+            Elevate Success with SETOOL Project Management
           </Typography>
         </Stack>
 
@@ -29,15 +57,25 @@ const SignupForm = ({ onSwitchMode }) => {
           <Stack spacing={2}>
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Name</Typography>
-              <TextField />
+              <TextField
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Stack>
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Email</Typography>
-              <TextField />
+              <TextField
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Stack>
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Password</Typography>
-              <TextField type='password' />
+              <TextField
+                type='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </Stack>
           </Stack>
           <Button
@@ -49,8 +87,9 @@ const SignupForm = ({ onSwitchMode }) => {
                 bgcolor: colors.grey[600]
               }
             }}
+            onClick={handleCreateAccount}
           >
-            Sign in
+            Create Account
           </Button>
         </Stack>
 
