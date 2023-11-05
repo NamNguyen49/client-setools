@@ -3,7 +3,7 @@ import React from 'react';
 import SideBar from '../../components/studentComponent/sideBar/sideBar';
 import SearchAppBar from '../../components/studentComponent/navBar/navBar';
 import StudentProject from '../../components/studentDashBoard/studentProject';
-
+import Footer from '../../components/Footer/Footer';
 const StudentPage = () => {
     return (
         <div >
@@ -13,6 +13,7 @@ const StudentPage = () => {
 
                 <StudentProject />
             </div>
+            <Footer />
         </div>
     )
 }
