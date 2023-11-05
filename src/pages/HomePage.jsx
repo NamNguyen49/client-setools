@@ -100,7 +100,7 @@ export default function HomePage() {
                     prevData.filter((item) => item.id !== row.id)
                 );
                 setRejectedData((prevData) => [...prevData, response.data]);
-                toast.error("Reject Successful");
+                alert('Are use sure??');
             })
             .catch((error) => {
                 console.error("Error updating data:", error);
@@ -490,7 +490,7 @@ export default function HomePage() {
                                 </div>
                             </TableContainer>
                         </TabPanel>
-                        {/* Bang Ban  */}
+                        {/* Bang Delete  */}
                         <TabPanel value="rejected" sx={{ p: 0 }}>
                             <TableContainer component={Paper}>
                                 <Table

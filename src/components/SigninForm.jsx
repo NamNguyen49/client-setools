@@ -24,19 +24,25 @@ const SigninForm = ({ onSwitchMode }) => {
           const userList = response.data;
           const matchedUser = userList.find((user) => user.email === userCredentials.email && user.password === userCredentials.password);
           if (matchedUser) {
+            alert('Login successfully');
             if (matchedUser.role === 'admin') {
+
               navigate('/admin');
             } else if (matchedUser.role === 'student') {
+
               navigate('/home');
             } else if (matchedUser.role === 'teacher') {
+
               navigate('/teacher');
             }
             else {
               console.error('Vai trò không hợp lệ');
+
             }
             dispatch(loginSuccess(matchedUser));
           } else {
             console.error('Đăng nhập thất bại: Tên người dùng hoặc mật khẩu không đúng.');
+            alert('Login failed: Incorrect username or password.');
           }
         } else {
           console.error('Lỗi khi lấy danh sách người dùng từ máy chủ API');
