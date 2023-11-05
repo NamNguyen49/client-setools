@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import SigninPage from '../pages/SigninPage';
 import StudentPage from '../pages/student/studentPage';
-import ListUser from '../container/Admin/ListUser';
-import Teacher from '../container/teacher/Teacher';
+import Teacher from '../../src/pages/teacher/Teacher';
+import ListUser from '../../src/pages/Admin/ListUser';
 import Profile from '../pages/Profile';
 function RouterApp() {
     return (
