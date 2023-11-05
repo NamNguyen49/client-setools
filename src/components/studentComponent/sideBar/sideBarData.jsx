@@ -28,7 +28,7 @@ export function SidebarData() {
         {
             title: "Home",
             icon: <HomeIcon />,
-            link: "/student",
+            link: "/home",
         },
         ...projects.map((projectName, index) => ({
             title: projectName,

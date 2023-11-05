@@ -460,7 +460,7 @@ export default function ListUser() {
                               <Button
                                 variant="contained"
                                 color="primary"
-                              // onClick={() => handlePass(row)}
+
                               >
                                 Detail
                                 {console.log(passedData)}

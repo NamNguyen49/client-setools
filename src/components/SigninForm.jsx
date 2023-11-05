@@ -27,7 +27,7 @@ const SigninForm = ({ onSwitchMode }) => {
             if (matchedUser.role === 'admin') {
               navigate('/admin');
             } else if (matchedUser.role === 'student') {
-              navigate('/student');
+              navigate('/home');
             } else if (matchedUser.role === 'teacher') {
               navigate('/teacher');
             }

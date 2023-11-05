@@ -16,23 +16,26 @@ import {
     TableRow,
     TextField,
 } from "@mui/material";
-import Search from "@mui/icons-material/Search";
-import SearchAppBar from '../components/studentComponent/navBar/navBar';
-
-// import Pagination from "@mui/material/Pagination";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import SendIcon from "@mui/icons-material/Send";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { toast } from "react-toastify";
 import { GridSearchIcon } from "@mui/x-data-grid";
-
-import Footer from "../components/Footer/Footer";
-
+import { AiFillFacebook } from "react-icons/ai";
+import { AiTwotoneMail } from "react-icons/ai";
+import { AiFillTwitterSquare } from "react-icons/ai";
+import SearchAppBar from '../components/studentComponent/navBar/navBar';
 const API_ENDPOINT =
-    // "http://10.88.55.108:9305/api/reccer/personal/getAll";
 
-    "https://6530932a6c756603295ec7c4.mockapi.io/teacher";
+
+    "https://64a6238b00c3559aa9c06117.mockapi.io/manageContact";
 
 export default function HomePage() {
     const [auth, setAuth] = React.useState(true);
@@ -58,26 +61,28 @@ export default function HomePage() {
         setSearchValue(event.target.value);
     };
 
-    //(waiting, pass,reject)
+
     const [value, setValue] = useState("waiting");
     const handleFilterClick = (event, newValue) => {
         setValue(newValue);
     };
+    const handleDetailClick = () => {
+        navigate('/student');
+    };
     const navigate = useNavigate();
-    const handlePass = (row) => {
-        // Thực hiện chuyển ứng viên từ "waiting" sang "passed" và gọi API PUT để cập nhật trạng thái
-        const updatedRow = { ...row, status: "passed" };
+    const handleWaiting = (row) => {
+
+        const updatedRow = { ...row, status: "waiting" };
         axios
             .put(`${API_ENDPOINT}/${row.id}`, updatedRow)
             .then((response) => {
-                // Cập nhật lại dữ liệu trên client-side
+
                 setData((prevData) =>
-                    // prevData.map((item) => (item.id === row.id ? response.data : item))
-                    //fake API
+
                     prevData.filter((item) => item.id !== row.id)
                 );
 
-                // Chuyển dòng dữ liệu từ "data" sang "passedData"
+
                 setPassedData((prevData) => [...prevData, response.data]);
                 toast.success("Pass Successful");
             })
@@ -86,19 +91,14 @@ export default function HomePage() {
             });
     };
     const handleReject = (row) => {
-        // Thực hiện chuyển ứng viên từ "waiting" sang "rejected" và gọi API PUT để cập nhật trạng thái
         const updatedRow = { ...row, status: "rejected" };
 
         axios
             .put(`${API_ENDPOINT}/${row.id}`, updatedRow)
             .then((response) => {
-                // Cập nhật lại dữ liệu trên client-side
                 setData((prevData) =>
-                    // prevData.map((item) => (item.id === row.id ? response.data : item))
-                    //fake API
                     prevData.filter((item) => item.id !== row.id)
                 );
-                // Chuyển dòng dữ liệu từ "data" sang "rejectedData"
                 setRejectedData((prevData) => [...prevData, response.data]);
                 toast.error("Reject Successful");
             })
@@ -111,11 +111,9 @@ export default function HomePage() {
     const [passedData, setPassedData] = useState([]);
     const [rejectedData, setRejectedData] = useState([]);
     useEffect(() => {
-        // Đảm bảo giá trị ban đầu của "value" là "one"
         setValue("waiting");
     }, []);
 
-    // Phân trang
     const handlePageChange = (event, page) => {
         navigate(`/home?page=${page}`);
     };
@@ -128,20 +126,17 @@ export default function HomePage() {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = page * itemsPerPage;
     const paginationData = data.slice(startIndex, endIndex);
-    //Call API
 
     useEffect(() => {
-        // Fetch contact data from the mock API
+
         axios
             .get(
-                `https://6530932a6c756603295ec7c4.mockapi.io/teacher/?status=${value}`
+                `https://64a6238b00c3559aa9c06117.mockapi.io/manageContact/?status=${value}`
 
-                // `http://10.88.55.108:9305/api/reccer/personal/getAll`
+
             )
             .then((response) => {
-                // setData(response.data.responseEntity.body.content);
-                // console.log('>>check api',data)
-                //fake api
+
                 setData(response.data);
             })
             .catch((error) => {
@@ -149,11 +144,101 @@ export default function HomePage() {
             });
     }, [value]);
 
+    const handleProfileClick = () => {
+        navigate('/profile');
+        handleClose();
+    };
+    const handleLogout = () => {
+        navigate('/');
+        handleClose();
+    };
+
+
     return (
         <>
+            <div>
+                <Box sx={{ flexGrow: 1, }}>
 
-            <SearchAppBar />
+                    <SearchAppBar />
+                    <Toolbar>
 
+
+                        <Grid
+                            item
+                            xs={6}
+                            sx={{
+                                maxWidth: "300px",
+                                flexGrow: 0,
+                                display: "flex",
+                                flexDirection: "row-reverse",
+                                marginLeft: "auto",
+                            }}
+                        >
+                            <div className="search-container">
+                                <TextField
+                                    id="search"
+                                    type="search"
+                                    label="Search"
+                                    value={searchValue}
+                                    onChange={handleSearchChange}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <IconButton
+                                                sx={{
+                                                    backgroundColor: "#inherit",
+                                                    "&:hover": {
+                                                        backgroundColor: "#inherit",
+                                                    },
+                                                    position: "absolute",
+                                                    right: 0,
+                                                    width: "50px",
+                                                    height: "100%",
+                                                    borderRadius: 0,
+                                                }}
+                                            >
+                                                <GridSearchIcon sx={{ color: "white" }} />
+                                            </IconButton>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                        </Grid>
+                        {auth && (
+                            <div>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleMenu}
+                                    color="inherit"
+                                >
+
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                                </Menu>
+                            </div>
+                        )}
+                    </Toolbar>
+
+                </Box>
+            </div>
             <div
                 style={{
                     display: "flex ",
@@ -168,63 +253,26 @@ export default function HomePage() {
                                 <TabList
                                     onChange={handleFilterClick}
                                     aria-label="lab API tabs example"
-
                                 >
-
                                     <Tab
-                                        onClick={handlePageChange1}
                                         style={{
                                             fontWeight: "bold",
                                         }}
-                                        label="Projects list"
-                                        value="passed"
-
+                                        label="List Project"
+                                        value="waiting"
                                     />
 
-
+                                    <Tab
+                                        style={{
+                                            fontWeight: "bold",
+                                        }}
+                                        label="Delete"
+                                        value="rejected"
+                                    />
                                 </TabList>
                             </Grid>
 
-                            {/* Search */}
-                            <Grid
-                                item
-                                xs={6}
-                                sx={{
-                                    maxWidth: "300px",
-                                    flexGrow: 0,
-                                    display: "flex",
-                                    flexDirection: "row-reverse",
-                                }}
-                            >
-                                <div className="search-container">
-                                    <TextField
-                                        id="search"
-                                        type="search"
-                                        label="Search"
-                                        value={searchValue}
-                                        onChange={handleSearchChange}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <IconButton
-                                                    sx={{
-                                                        backgroundColor: "#626AD1",
-                                                        "&:hover": {
-                                                            backgroundColor: "#626AD1",
-                                                        },
-                                                        position: "absolute",
-                                                        right: 0,
-                                                        width: "50px",
-                                                        height: "100%",
-                                                        borderRadius: 0,
-                                                    }}
-                                                >
-                                                    <GridSearchIcon sx={{ color: "white" }} />
-                                                </IconButton>
-                                            ),
-                                        }}
-                                    />
-                                </div>
-                            </Grid>
+
                         </Grid>
 
                         <TabPanel value="waiting" sx={{ p: 0 }}>
@@ -239,7 +287,6 @@ export default function HomePage() {
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                             >
                                                 Projects
-
                                             </TableCell>
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
@@ -251,7 +298,7 @@ export default function HomePage() {
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                                 align="center"
                                             >
-                                                Full Name
+                                                FullName
                                             </TableCell>
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
@@ -265,12 +312,7 @@ export default function HomePage() {
                                             >
                                                 Email
                                             </TableCell>
-                                            <TableCell
-                                                sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                                                align="center"
-                                            >
-                                                Note
-                                            </TableCell>
+
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -291,31 +333,27 @@ export default function HomePage() {
                                                     >
                                                         {row.project}
                                                     </TableCell>
-                                                    <TableCell align="center">{row.role}</TableCell>
+                                                    <TableCell align="center">{row.score}</TableCell>
                                                     <TableCell align="center">{row.name}</TableCell>
                                                     <TableCell align="center">{row.phone}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
-                                                    <TableCell align="center">
-                                                        <Button variant="contained" color="primary" align="center">
-                                                            {row.note}
-                                                        </Button>
-                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
                                                                 variant="contained"
                                                                 color="primary"
-                                                                onClick={() => handlePass(row)}
+                                                                onClick={() => handleDetailClick()}
                                                             >
-                                                                Graded
+                                                                Detail
                                                                 {console.log(passedData)}
                                                             </Button>
+
                                                             <Button
                                                                 color="error"
                                                                 variant="outlined"
                                                                 onClick={() => handleReject(row)}
                                                             >
-                                                                Ban
+                                                                Delete
                                                                 {console.log(">>>>check", rejectedData)}
                                                             </Button>
                                                         </ButtonGroup>
@@ -343,7 +381,7 @@ export default function HomePage() {
                                 </div>
                             </TableContainer>
                         </TabPanel>
-                        {/* Bang Detail */}
+
                         <TabPanel value="passed" sx={{ p: 0 }}>
                             <TableContainer component={Paper}>
                                 <Table
@@ -363,6 +401,7 @@ export default function HomePage() {
                                             >
                                                 Role
                                             </TableCell>
+
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                                 align="center"
@@ -381,12 +420,7 @@ export default function HomePage() {
                                             >
                                                 Email
                                             </TableCell>
-                                            <TableCell
-                                                sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                                                align="center"
-                                            >
-                                                Note
-                                            </TableCell>
+
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -407,21 +441,17 @@ export default function HomePage() {
                                                     >
                                                         {row.name}
                                                     </TableCell>
-                                                    <TableCell align="center">{row.role}</TableCell>
+                                                    <TableCell align="center">{row.score}</TableCell>
                                                     <TableCell align="center">{row.project}</TableCell>
                                                     <TableCell align="center">{row.phone}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
-                                                    <TableCell align="center">
-                                                        <Button variant="contained" color="primary" align="center">
-                                                            {row.note}
-                                                        </Button>
-                                                    </TableCell>
+
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
                                                                 variant="contained"
                                                                 color="primary"
-                                                            // onClick={() => handlePass(row)}
+
                                                             >
                                                                 Detail
                                                                 {console.log(passedData)}
@@ -432,7 +462,7 @@ export default function HomePage() {
                                                                 variant="outlined"
                                                                 onClick={() => handleReject(row)}
                                                             >
-                                                                Ban
+                                                                Delete
                                                                 {console.log(">>>>check", rejectedData)}
                                                             </Button>
                                                         </ButtonGroup>
@@ -441,7 +471,7 @@ export default function HomePage() {
                                             ))}
                                     </TableBody>
                                 </Table>
-                                {/* hiện thị số trang  */}
+
                                 <div
                                     className="pagination"
                                     style={{
@@ -460,7 +490,7 @@ export default function HomePage() {
                                 </div>
                             </TableContainer>
                         </TabPanel>
-                        {/* Bang Rejected  */}
+                        {/* Bang Ban  */}
                         <TabPanel value="rejected" sx={{ p: 0 }}>
                             <TableContainer component={Paper}>
                                 <Table
@@ -472,7 +502,7 @@ export default function HomePage() {
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                             >
-                                                Full Name
+                                                Projects
                                             </TableCell>
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
@@ -484,26 +514,21 @@ export default function HomePage() {
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                                 align="center"
                                             >
+                                                Full Name
+                                            </TableCell>
+                                            <TableCell
+                                                sx={{ fontWeight: "bolder", fontSize: "1rem" }}
+                                                align="center"
+                                            >
                                                 Phone
                                             </TableCell>
                                             <TableCell
                                                 sx={{ fontWeight: "bolder", fontSize: "1rem" }}
                                                 align="center"
                                             >
-                                                Project
+                                                Email
                                             </TableCell>
-                                            <TableCell
-                                                sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                                                align="center"
-                                            >
-                                                Gmail
-                                            </TableCell>
-                                            <TableCell
-                                                sx={{ fontWeight: "bolder", fontSize: "1rem" }}
-                                                align="center"
-                                            >
-                                                Note
-                                            </TableCell>
+
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -522,26 +547,20 @@ export default function HomePage() {
                                                             fontWeight: "bold",
                                                         }}
                                                     >
-                                                        {row.name}
+                                                        {row.project}
                                                     </TableCell>
-                                                    <TableCell align="center">{row.role}</TableCell>
-                                                    <TableCell align="center">{row.phone}</TableCell>
-                                                    <TableCell align="center">{row.project}</TableCell>
+                                                    <TableCell align="center">{row.score}</TableCell>
+                                                    <TableCell align="center">{row.name}</TableCell>
                                                     <TableCell align="center">{row.email}</TableCell>
-                                                    <TableCell align="center">
-                                                        <Button variant="contained" color="primary" align="center">
-                                                            {row.note}
-                                                        </Button>
-                                                    </TableCell>
                                                     <TableCell align="center">
                                                         <ButtonGroup sx={{ gap: "10px" }}>
                                                             <Button
                                                                 variant="contained"
                                                                 color="primary"
-                                                                onClick={() => handlePass(row)}
+                                                                onClick={() => handleWaiting(row)}
                                                             >
-                                                                Unban
-
+                                                                UnDelete
+                                                                {console.log(passedData)}
                                                             </Button>
 
 
@@ -551,7 +570,6 @@ export default function HomePage() {
                                             ))}
                                     </TableBody>
                                 </Table>
-                                {/* hiện thị số trang  */}
                                 <div
                                     className="pagination"
                                     style={{
@@ -573,8 +591,27 @@ export default function HomePage() {
                     </TabContext>
                 </Box>
             </div>
+            <div
+                style={{
+                    height: "150px",
+                    backgroundColor: "#D6DDFF",
+                    marginTop: "0rem",
+                }}
+            >
+                <Box sx={{ textAlign: "center", paddingTop: "-2rem" }}>
+                    <AiFillFacebook style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
 
-            <Footer />
+                    <AiTwotoneMail style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
+
+                    <AiFillTwitterSquare style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
+                    <Typography sx={{ color: "#9CA3AF" }}>
+                        Made by <span style={{ fontWeight: "bolder" }}>SE TOOL</span>
+                    </Typography>
+                    <Typography sx={{ color: "#9CA3AF" }}>
+                        © 2023 <span style={{ fontWeight: "bolder" }}>SWP391</span>. All rights reserved
+                    </Typography>
+                </Box>
+            </div>
         </>
     );
-} 
+}
