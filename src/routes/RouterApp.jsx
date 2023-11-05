@@ -10,7 +10,7 @@ import Profile from '../pages/Profile';
 import RouteWrapper from './RouteWrapper';
 
 function RouterApp() {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Truy cập trạng thái đăng nhập từ Redux store
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
     return (
         <Router>

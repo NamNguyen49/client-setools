@@ -6,13 +6,13 @@ import Modalpopup from '../../CreateProject';
 import { useSelector } from 'react-redux';
 
 function SideBar({ openDrawer }) {
-  const data = SidebarData(); // Gọi SidebarData như một hàm để lấy danh sách dữ liệu
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Lấy trạng thái đăng nhập từ Redux
+  const data = SidebarData();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <div className='SideBar'>
       <ul className='SideBarList'>
-        {data.map((value, key) => { // Sử dụng data thay vì SidebarData
+        {data.map((value, key) => {
           return (
             <li
               id={window.location.pathname === value.link ? "Active" : ""}
@@ -26,7 +26,7 @@ function SideBar({ openDrawer }) {
               <div id='icon'>
                 {value.icon}
               </div>
-              <div id='title'>{value.title}</div> {/* Sửa value.titile thành value.title */}
+              <div id='title'>{value.title}</div>
             </li>
           );
         })}
