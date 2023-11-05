@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // Import useSelector để truy cập trạng thái từ Redux store
-import HomePage from '../pages/HomePage';
+import { useSelector } from 'react-redux';
+
 import SigninPage from '../pages/SigninPage';
 import StudentPage from '../pages/student/studentPage';
 import ListUser from '../pages/Admin/ListUser';
@@ -16,7 +16,7 @@ function RouterApp() {
         <Router>
             <Routes>
                 <Route path="/" element={<SigninPage />} />
-                {/* <Route path="/home" element={isAuthenticated ? <RouteWrapper element={<HomePage />} isPrivate={true} /> : <Navigate to="/" />} /> */}
+
 
 
                 <Route path="/student" element={isAuthenticated ? <RouteWrapper element={<StudentPage />} isPrivate={true} /> : <Navigate to="/" />} />
