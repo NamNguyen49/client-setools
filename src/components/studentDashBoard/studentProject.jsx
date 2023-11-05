@@ -146,7 +146,6 @@ export default function App() {
   };
   const calculateColumnHeight = (columnName) => {
     const itemsInColumn = items.filter((item) => item.Approve === columnName);
-    // Tính chiều cao dựa trên số lượng mục trong cột
     const height = `${itemsInColumn.length * 250}vh`; // Điều chỉnh chiều cao theo ý muốn
     return height;
   };
@@ -193,6 +192,7 @@ export default function App() {
 
         if (!emailExistsInMock) {
           console.error('Email not found in mock data');
+          
           return;
         }
 
@@ -221,7 +221,7 @@ export default function App() {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <Button onClick={handleAddMember}>Add Member</Button>
+        <Button onClick={() => handleAddMember(email)}>Add Member</Button>
       </div>
       <div className="container" style={{ justifyContent: "center" }}>
         <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
@@ -253,7 +253,7 @@ export default function App() {
         </DndProvider>
       </div>
       <MemberList members={members} />
-      <Footer />
+     
     </>
   );
 }

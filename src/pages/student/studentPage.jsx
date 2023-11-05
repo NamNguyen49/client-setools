@@ -2,7 +2,7 @@ import React from 'react';
 
 import SearchAppBar from '../../components/studentComponent/navBar/navBar';
 import StudentProject from '../../components/studentDashBoard/studentProject';
-
+import Footer from '../../components/Footer/Footer';
 const StudentPage = () => {
 
 
@@ -14,6 +14,7 @@ const StudentPage = () => {
             <div style={{ justifyContent: 'center', alignItems: 'center', height: '70vh', width: '100%' }}>
                 <StudentProject />
             </div>
+            <Footer />
         </div>
     );
 }

@@ -220,7 +220,7 @@ function NavBar() {
           onClose={() => toggleDrawer(false)}
           onOpen={() => toggleDrawer(true)}
         >
-          <div style={{ width: 250 }}>
+          <div style={{ width: 300 }}>
             <SideBar />
           </div>
         </SwipeableDrawer>

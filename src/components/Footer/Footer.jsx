@@ -8,10 +8,10 @@ const Footer = () => {
             style={{
                 height: "150px",
                 backgroundColor: "#D6DDFF",
-                marginTop: "0rem",
+                marginTop: "4.2rem",
             }}
         >
-            <Box sx={{ textAlign: "center", paddingTop: "-2rem" }}>
+            <Box sx={{ textAlign: "center", paddingTop: "2rem" }}>
                 <AiFillFacebook style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
                 <AiTwotoneMail style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
                 <AiFillTwitterSquare style={{ margin: '1rem', color: "#9CA3AF", fontSize: "30px" }} />
