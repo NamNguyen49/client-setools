@@ -4,7 +4,7 @@ import { ScreenMode } from '../pages/SigninPage';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const SignupForm = ({ onSwitchMode }) => {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const SignupForm = ({ onSwitchMode }) => {
   const handleCreateAccount = () => {
 
     const userCredentials = {
-      name,
+      username,
       email,
       password,
       role: 'student',
@@ -23,7 +23,7 @@ const SignupForm = ({ onSwitchMode }) => {
       .then((response) => {
 
         console.log('Tạo tài khoản thành công', response.data);
-        navigate('/signin');
+        navigate('/');
       })
       .catch((error) => {
 
@@ -58,7 +58,7 @@ const SignupForm = ({ onSwitchMode }) => {
             <Stack spacing={1}>
               <Typography color={colors.grey[800]}>Name</Typography>
               <TextField
-                value={name}
+                value={username}
                 onChange={(e) => setName(e.target.value)}
               />
             </Stack>

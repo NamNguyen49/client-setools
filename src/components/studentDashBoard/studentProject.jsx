@@ -11,7 +11,7 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import SingleCard from "../studentComponent/singleCard/SingleCard";
 
 import MemberList from './MemberList'
-import Footer from '../Footer/Footer'
+import Comment from './Comment'
 export default function App() {
   const { ToDo, InProgress, Review, Done } = ColumnNames;
   const [progress, setProgress] = useState("");
@@ -66,6 +66,22 @@ export default function App() {
       });
     }
   };
+  const handleDeleteMember = (memberId) => {
+
+    const memberIndex = members.findIndex(member => member.id === memberId);
+
+    if (memberIndex !== -1) {
+
+      const updatedMembers = [...members];
+
+
+      updatedMembers.splice(memberIndex, 1);
+
+
+      setMembers(updatedMembers);
+    }
+  };
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -183,33 +199,54 @@ export default function App() {
   const [members, setMembers] = useState([]);
   const [email, setEmail] = useState("");
 
+  useEffect(() => {
 
+    const savedMembers = JSON.parse(localStorage.getItem('members'));
+    if (savedMembers) {
+      setMembers(savedMembers);
+    }
+  }, []);
+  useEffect(() => {
+
+    localStorage.setItem('members', JSON.stringify(members));
+  }, [members]);
   const handleAddMember = () => {
-    fetch('https://64a6238b00c3559aa9c06117.mockapi.io/manageContact')
+    if (!email) {
+      console.error('Email is empty');
+      return;
+    }
+
+
+    if (members.some(member => member.email === email)) {
+      console.error('This member already exists in the list');
+      return;
+    }
+    fetch('https://6547582e902874dff3ac2f96.mockapi.io/account/user')
       .then(response => response.json())
       .then(data => {
         const emailExistsInMock = data.some(member => member.email === email);
 
         if (!emailExistsInMock) {
           console.error('Email not found in mock data');
-          
           return;
         }
 
-        setMembers([...members, { email }]);
-        setEmail(''); // Xóa email trong trường input sau khi thêm
+        const newMember = { email };
+        setMembers([...members, newMember]);
+        setEmail('');
+
+
+        const updatedMembers = [...members, newMember];
+        localStorage.setItem('members', JSON.stringify(updatedMembers));
       })
       .catch(error => {
         console.error('Error fetching data from mock API:', error);
       });
-  }
+  };
 
 
 
-  const validateEmail = (email) => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-  }
+
 
 
   return (
@@ -248,12 +285,17 @@ export default function App() {
               >
                 {returnItemsForColumn(e.title)}
               </Column>
+
             );
           })}
+          <MemberList members={members} onDeleteMember={handleDeleteMember} />
         </DndProvider>
+
+
       </div>
-      <MemberList members={members} />
-     
+
+      <Comment />
+
     </>
   );
 }
