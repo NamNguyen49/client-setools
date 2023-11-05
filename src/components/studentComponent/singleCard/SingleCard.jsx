@@ -10,8 +10,32 @@ export default function SingleCard({
   index,
   moveCardHandler,
   columnsArr,
-
+  deadline,
+  Approve
 }) {
+
+  // Lấy ngày hiện tại
+  const currentDate = new Date();
+  const currentDateString = currentDate.toISOString().split("T")[0];
+  const deadlineDate = new Date(deadline);
+  
+
+  
+
+  // Kiểm tra deadline và trạng thái cột
+  let backgroundColor = "rgba(254,255,83,0.43)";
+  if (Approve === "Done") {
+    backgroundColor = "#06f60b";
+
+  } if (Approve === "In Progress" && deadline < currentDateString) {
+    backgroundColor = "rgba(251,0,61,0.7) ";
+  } if (Approve === "In Progress" && deadline > currentDateString) {
+    backgroundColor = "rgba(254,255,83,0.43)";
+  } if (Approve === "To Do" && deadline < currentDateString) {
+    backgroundColor = "rgba(251, 0, 61, 0.7)";
+  }
+
+
   const changeItemColumn = (currentItem, columnName) => {
     setItems((prevState) => {
       return prevState.map((e) => {
@@ -98,19 +122,23 @@ export default function SingleCard({
     setOpenDetailTask(true);
   }
   return (
-    <div ref={ref} style={{ opacity }} className="singleCard" >
+    <div ref={ref} style={{
+      opacity,
+      backgroundColor
+    }} className="singleCard"
+
+    >
       <div className="card" onClick={() => HandleDetailsTask(id)}>
         <h4 className="titleCard">{username}</h4>
         <h5 className="User">{name}</h5>
+        <h6 className="Deadline">End at {deadline}</h6>
       </div>
       <DialogDetailTask
         open={openDetailTask}
         onClose={() => setOpenDetailTask(false)}
         cardKey={keyDetail}
-
       />
     </div>
 
   );
-
 }

@@ -34,7 +34,7 @@
 
 .modalContainer {
   position: absolute;
-  width: auto;
+  width: fit-content;
   height: fit-content;
   background-color: #f3f3f3;
   border-radius: 5px;
