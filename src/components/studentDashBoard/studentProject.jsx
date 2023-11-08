@@ -3,7 +3,7 @@ import "./style.css";
 import Column from "../studentComponent/column/Column";
 import { ColumnNames } from "../constants";
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Stack, TextField } from "@mui/material";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -228,6 +228,9 @@ export default function App() {
 
         if (!emailExistsInMock) {
           console.error('Email not found in mock data');
+          toast("Email not found in mock data", {
+            type: "error",
+        });
           return;
         }
 
@@ -293,7 +296,7 @@ export default function App() {
 
 
       </div>
-
+      <ToastContainer />
       <Comment />
 
     </>

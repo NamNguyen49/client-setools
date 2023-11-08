@@ -1,10 +1,14 @@
 import "./style.css";
 import { useDrop } from "react-dnd";
-
+import React, { useState, useEffect } from 'react';
 import Modal from '@mui/material/Modal';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import NativeSelect from '@mui/material/NativeSelect';
 export default function Column({
   children,
   className,
@@ -23,7 +27,20 @@ export default function Column({
     accept: "Card",
     drop: () => ({ name: title })
   });
-
+  const [members, setMembers] = useState([]);
+  const fetchGetMembers = () => {
+    fetch('https://6547582e902874dff3ac2f96.mockapi.io/account/user')
+      .then(response => response.json())
+      .then(data => {
+        setMembers(data)
+      })
+      .catch(error => {
+        console.error('Error fetching data from mock API:', error);
+      });
+  };
+  useEffect(() => {
+    fetchGetMembers();
+  }, []);
 
 
   const body = (
@@ -46,7 +63,7 @@ export default function Column({
             </div>
             {/* Đoạn này là selected */}
             <div style={{ marginTop: "10px" }}>
-              <label htmlFor="assignee" className="input-task">Email Assignee:</label><br />
+              {/* <label htmlFor="assignee" className="input-task">Email Assignee:</label><br />
               <TextField
                 id="assignee"
                 className="StudentId"
@@ -54,7 +71,27 @@ export default function Column({
                 type="text"
                 placeholder="Enter Assignee"
                 required
-              />
+              /> */}
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                    Assignee
+                  </InputLabel>
+                  <NativeSelect
+                    defaultValue={30}
+                    onChange={handleAssigneeChange}
+                    id="assignee"
+                    inputProps={{
+                      name: 'age',
+                      id: "assignee"
+                    }}
+                  >
+                    {members.map((member) => (
+                      <option key={member.id} value={member.email}> {member.email}</option>
+                    ))}
+                  </NativeSelect>
+                </FormControl>
+              </Box>
             </div>
             <div style={{ marginTop: "10px" }}>
               <label htmlFor="deadline" className="input-task">Deadline:</label><br />
