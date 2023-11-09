@@ -1,0 +1,46 @@
+/* CSS */
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button-container .MuiButton-root {
+    margin: 5px;
+  }
+  
+  .button-container .MuiButtonGroup-root {
+    gap: 10px;
+    background: gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .button-container .MuiButtonGroup-root .MuiButton-root {
+    color: #fff; /* Màu chữ */
+    background-color: #2196F3; /* Màu nền */
+  }
+  
+  .button-container .MuiButtonGroup-root .MuiButton-root:hover {
+    background-color: #1976D2; /* Màu nền khi hover */
+  }
+  
+  .button-container .MuiButtonGroup-root .MuiButton-root:disabled {
+    background-color: #ccc; /* Màu nền khi bị vô hiệu hóa */
+  }
+  
+  .button-container .MuiTextField-root {
+    margin: 0;
+  }
+  
+  .button-container .MuiButton-colorError {
+    background-color: #FF5722; /* Màu nền nút "Ban" */
+    color: #fff; /* Màu chữ nút "Ban" */
+  }
+  
+  .button-container .MuiButton-colorError:hover {
+    background-color: #E64A19; /* Màu nền khi hover nút "Ban" */
+  }
+  
